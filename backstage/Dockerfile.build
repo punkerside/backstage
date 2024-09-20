@@ -1,0 +1,20 @@
+FROM node:18-bullseye
+
+RUN apt-get update && apt-get install -y \
+  python3 \
+  build-essential \
+  git \
+  sqlite3 \
+  libsqlite3-dev \
+  pkg-config \
+  libffi-dev \
+  libssl-dev \
+  zlib1g-dev \
+  g++ \
+  make \
+  cmake \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV BACKSTAGE_APP_NAME=my-backstage-app
+RUN npm install -g @backstage/create-app@latest
+CMD ["npx", "@backstage/create-app", "--skip-install", "--path", "/app"]
