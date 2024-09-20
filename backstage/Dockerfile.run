@@ -1,7 +1,5 @@
-# Usa una imagen más completa de Node.js como base
 FROM node:18-bullseye
 
-# Instala herramientas necesarias para la compilación y las dependencias del sistema
 RUN apt-get update && apt-get install -y \
   python3 \
   build-essential \
@@ -15,33 +13,8 @@ RUN apt-get update && apt-get install -y \
   g++ \
   make \
   cmake \
+  git \
   && rm -rf /var/lib/apt/lists/*
 
-# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
-
-# Define la variable de entorno para el nombre de la aplicación
-ENV BACKSTAGE_APP_NAME=my-backstage-app
-
-# Instala globalmente el paquete @backstage/create-app en la última versión
-RUN npm install -g @backstage/create-app@latest
-
-# Crea la aplicación Backstage usando la variable de entorno para el nombre
-# y evitando la instalación automática de dependencias
-RUN npx @backstage/create-app --skip-install --path /app/my-backstage-app
-
-# Cambia al directorio de la aplicación recién creada
-WORKDIR /app/my-backstage-app
-
-# Instala las dependencias de Backstage
-RUN yarn install
-
-# Construye la aplicación Backstage
-RUN yarn tsc
-RUN yarn build:backend
-
-# Expone el puerto 7000 para acceder a Backstage
-EXPOSE 7000
-
-# Comando para iniciar Backstage
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]

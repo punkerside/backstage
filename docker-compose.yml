@@ -1,14 +1,14 @@
 version: '3'
 services:
   backstage:
-    image: punkerside-backstage
+    image: punkerside-backstage:run
     build:
       context: .
     ports:
-      - "7000:7000"
       - "3000:3000"
-    environment:
-      NODE_ENV: production
-    # volumes:
-    #   - ./:/app
+      - "7007:7007"
+    # environment:
+    #   NODE_ENV: production
+    volumes:
+      - ./backstage/app:/app
     command: ["yarn", "start"]

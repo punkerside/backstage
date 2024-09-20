@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: orders-service
+  description: Servicio de gestión de pedidos.
+  owner: team-backend
+  labels:
+    tier: backend
+spec:
+  type: service
+  lifecycle: production
+  owner: team-backend

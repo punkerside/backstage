@@ -1,1 +1,5 @@
 passwd
+.npm/
+.yarn/
+node_modules/
+.cache/
