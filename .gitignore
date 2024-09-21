@@ -3,3 +3,4 @@ passwd
 .yarn/
 node_modules/
 .cache/
+.env
