@@ -8,18 +8,17 @@ export docker_uid=$(shell id -u)
 export docker_gid=$(shell id -g)
 export docker_user=$(shell whoami)
 
+base:
+	@docker build -t ${project}-${service}:init -f Dockerfile.init .
+	@docker build -t ${project}-${service}:run -f Dockerfile.run .
+
 init:
 	@echo "${docker_user}:x:${docker_uid}:${docker_gid}::/app:/sbin/nologin" > passwd
-	@docker build -t ${project}-${service}:init -f backstage/Dockerfile.init .
-	docker run --rm -u ${docker_uid}:${docker_gid} -v ${PWD}/passwd:/etc/passwd:ro -v ${PWD}/backstage/app:/app ${project}-${service}:init
-
-build:
-	@echo "${docker_user}:x:${docker_uid}:${docker_gid}::/app:/sbin/nologin" > passwd
-	@docker build -t ${project}-${service}:build -f backstage/Dockerfile.build .
-	@docker run --rm -u ${docker_uid}:${docker_gid} -v ${PWD}/passwd:/etc/passwd:ro -v ${PWD}/backstage/app:/app ${project}-${service}:build
-
-pre-run:
-	@docker build -t ${project}-${service}:run -f backstage/Dockerfile.run .
+	@docker run --rm -u ${docker_uid}:${docker_gid} -v ${PWD}/passwd:/etc/passwd:ro -v ${PWD}/backstage:/app ${project}-${service}:init
 
 run:
 	@docker compose up
+
+restart:
+	@docker compose down
+	@docker volume rm backstage_postgres_data

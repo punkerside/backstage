@@ -1,32 +1,25 @@
 version: '3'
 services:
   backstage:
-    image: punkerside-backstage:run
+    image: ${project}-${service}:run
     build:
       context: .
     ports:
       - "3000:3000"
       - "7007:7007"
     volumes:
-      - ./backstage/app:/app
-    command: ["yarn", "dev"]
-    environment:
-      AUTH_GITHUB_CLIENT_ID: ${AUTH_GITHUB_CLIENT_ID}
-      AUTH_GITHUB_CLIENT_SECRET: ${AUTH_GITHUB_CLIENT_SECRET}
-    depends_on:
-      - postgres
+      - ./backstage:/app
+    command: yarn dev
 
   postgres:
     image: postgres:13
     container_name: postgres-backstage
     environment:
       POSTGRES_USER: backstage
-      POSTGRES_PASSWORD: backstage_password
+      POSTGRES_PASSWORD: backstage
       POSTGRES_DB: backstage
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
 
 volumes:
   postgres_data:
