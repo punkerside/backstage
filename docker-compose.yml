@@ -10,6 +10,9 @@ services:
     volumes:
       - ./backstage:/app
     command: yarn dev
+    environment:
+      AUTH_GITHUB_CLIENT_ID: ${AUTH_GITHUB_CLIENT_ID}
+      AUTH_GITHUB_CLIENT_SECRET: ${AUTH_GITHUB_CLIENT_SECRET}
 
   postgres:
     image: postgres:13
