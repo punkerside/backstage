@@ -3,8 +3,8 @@ kind: Template
 # some metadata about the template itself
 metadata:
   name: v1beta3-demo
-  title: Test Action template
-  description: scaffolder v1beta3 template demo
+  title: Crear bucket S3 con Terraform
+  description: Plantilla para crear un bucket S3 utilizando Terraform
 spec:
   owner: guests
   type: service
