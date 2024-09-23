@@ -1,27 +1,32 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
-# some metadata about the template itself
 metadata:
   name: v1beta3-demo
   title: Crear bucket S3 con Terraform
   description: Plantilla para crear un bucket S3 utilizando Terraform
 spec:
   owner: guests
-  type: service
+  type: terraform
 
-  # these are the steps which are rendered in the frontend with the form input
   parameters:
     - title: Fill in some steps
       required:
         - name
       properties:
-        name:
-          title: Name
+        bucket_name:
+          title: Bucket Name
           type: string
-          description: Unique name of the component
+          description: Nombre del bucket S3
           ui:autofocus: true
           ui:options:
             rows: 5
+        environment:
+          title: Environment Name
+          type: string
+          description: Nombre del ambiente
+          ui:autofocus: true
+          ui:options:
+            rows: 3
     - title: Choose a location
       required:
         - repoUrl
@@ -34,7 +39,6 @@ spec:
             allowedHosts:
               - github.com
 
-  # here's the steps that are executed in series in the scaffolder backend
   steps:
     - id: fetch-base
       name: Fetch Base
