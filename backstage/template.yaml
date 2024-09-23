@@ -6,7 +6,7 @@ metadata:
   title: Test Action template
   description: scaffolder v1beta3 template demo
 spec:
-  owner: backstage/techdocs-core
+  owner: guests
   type: service
 
   # these are the steps which are rendered in the frontend with the form input
